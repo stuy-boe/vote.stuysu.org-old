@@ -8,7 +8,8 @@ import {
 	DrawerTitle
 } from '@rmwc/drawer';
 import '@material/drawer/dist/mdc.drawer.css';
-
+import { Icon } from '@rmwc/icon';
+import google from './../../img/icons/google.svg';
 import { List, SimpleListItem } from '@rmwc/list';
 
 import '@material/list/dist/mdc.list.css';
@@ -21,6 +22,7 @@ import backend from '../../tools/backend';
 import { createUseStyles } from 'react-jss';
 import ElectionItems from './ElectionItems';
 import AdminItems from './AdminItems';
+import AuthButton from '../utils/AuthButton';
 
 const useStyles = createUseStyles({
 	NavDrawer: {
@@ -77,12 +79,14 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 
 				<DrawerContent className={['DrawerContent']}>
 					<List>
-						{user.signedIn && (
+						{user.signedIn ? (
 							<SimpleListItem
 								graphic="power_settings_new"
 								text="Sign Out"
 								onClick={attemptLogout}
 							/>
+						) : (
+							<AuthButton />
 						)}
 
 						{Boolean(user?.adminRoles) && <AdminItems />}

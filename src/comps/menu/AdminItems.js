@@ -19,10 +19,10 @@ const AdminItems = () => {
 	const adminBaseRoute = `/admin`;
 	const routeMatch = useRouteMatch(adminBaseRoute);
 	const [isOpen, setIsOpen] = React.useState(Boolean(routeMatch));
-	const context = React.useContext(UserContext);
+	const user = React.useContext(UserContext);
 	const location = useLocation();
 
-	const privileges = context.admin.privileges || [];
+	const privileges = user.adminRoles || [];
 
 	const handleNavigationOut = () => {
 		if (isOpen && !routeMatch) {

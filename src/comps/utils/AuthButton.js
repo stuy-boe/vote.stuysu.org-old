@@ -2,44 +2,43 @@ import React from 'react';
 import { API_URL, GOOGLE_CLIENT_ID } from '../../constants';
 import DialogQueue from '../queues/DialogQueue';
 import Text from '../../typography/Text';
-import GoogleLogin from 'react-google-login';
+import GoogleLogin, { useGoogleLogin } from 'react-google-login';
 import urlJoin from 'url-join';
+import { Icon } from '@rmwc/icon';
+import google from '../../img/icons/google.svg';
+import { SimpleListItem } from '@rmwc/list';
+import { gql, useMutation } from '@apollo/client';
+import UserContext from '../context/UserContext';
+
+const LOGIN_MUTATION = gql`
+	mutation($idToken: String!) {
+		login(idToken: $idToken)
+	}
+`;
 
 const AuthButton = () => {
-	const handleSuccess = async data => {
-		const email = data.profileObj.email;
-		const idToken = data.tokenId;
-		let confirmation = true;
-		if (!email.endsWith('@stuy.edu')) {
-			confirmation = await DialogQueue.confirm({
-				title: 'Confirm Email',
-				body: (
-					<Text>
-						You're attempting to sign in with an email address{' '}
-						{email} that doesn't belong to the @stuy.edu
-						organization. This will limit your functionality and
-						prevent your votes from being recorded. Are you sure you
-						want to continue?
-					</Text>
-				)
-			});
-		}
+	const [performLogin, { loading }] = useMutation(LOGIN_MUTATION);
 
-		if (confirmation) {
-			window.location.href = urlJoin(
-				API_URL,
-				`/api/auth/login`,
-				`?idToken=${encodeURIComponent(idToken)}`,
-				`?redirect=${window.location.href}`
-			);
-		}
-	};
+	const user = React.useContext(UserContext);
+
+	const { signIn, loaded } = useGoogleLogin({
+		onSuccess: ({ tokenId }) => {
+			performLogin({ variables: { idToken: tokenId } }).then(res => {
+				localStorage.setItem('auth-jwt', res.data.login);
+				user.refetch();
+			});
+		},
+		clientId: GOOGLE_CLIENT_ID,
+		isSignedIn: false,
+		onFailure: () => {}
+	});
 
 	return (
-		<GoogleLogin
-			onSuccess={handleSuccess}
-			onFailure={console.log}
-			clientId={GOOGLE_CLIENT_ID}
+		<SimpleListItem
+			disabled={loading}
+			graphic={<Icon icon={google} />}
+			text="Sign In With Google"
+			onClick={signIn}
 		/>
 	);
 };

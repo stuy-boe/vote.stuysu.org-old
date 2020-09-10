@@ -37,7 +37,7 @@ const UserProvider = ({ children }) => {
 		);
 	}
 
-	const value = {};
+	const value = { refetch };
 
 	if (data?.authenticatedUser) {
 		value.signedIn = true;
