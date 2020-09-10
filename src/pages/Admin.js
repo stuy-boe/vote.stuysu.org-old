@@ -1,6 +1,6 @@
 import React from 'react';
-import AppContext from '../comps/context/AppContext';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import UserContext from '../comps/context/UserContext';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import AdminElectionsRouter from '../comps/admin/AdminElectionsRouter';
 import AccessDeniedVector from '../vectors/x-on-laptop.svg';
 import SignInVector from '../vectors/carrying-key.svg';
@@ -9,7 +9,7 @@ import AuthButton from '../comps/utils/AuthButton';
 import FlexCenter from '../comps/utils/FlexCenter';
 
 const Admin = ({ match }) => {
-	const context = React.useContext(AppContext);
+	const context = React.useContext(UserContext);
 	if (!context.signedIn) {
 		return (
 			<ErrorPage

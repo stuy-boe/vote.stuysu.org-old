@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
 
-import Content from './comps/Content';
+import Content from './pages';
 import AppBar from './comps/menu/AppBar';
 import NavDrawer from './comps/menu/NavDrawer';
 import { BrowserRouter } from 'react-router-dom';
-import AppProvider from './comps/context/AppProvider';
+import UserProvider from './comps/context/UserProvider';
 
 import { SnackbarQueue } from '@rmwc/snackbar';
 import MessageQueue from './comps/queues/MessageQueue';
@@ -16,6 +16,10 @@ import ThemeProvider from './comps/context/ThemeProvider';
 import { DialogQueue as Dialogs } from '@rmwc/dialog';
 import DialogQueue from './comps/queues/DialogQueue';
 import '@rmwc/dialog/styles';
+import ApolloProvider from './comps/context/ApolloProvider';
+import DateProvider from './comps/context/DateProvider';
+
+
 
 const App = () => {
 	// If the device has a sufficiently large screen, the drawer is open by default
@@ -37,34 +41,34 @@ const App = () => {
 	};
 
 	return (
-		<ThemeProvider>
-			<div className="App">
-				<BrowserRouter>
-					<AppProvider>
-						<AppBar toggleDrawer={toggleDrawer} />
-						<NavDrawer
-							drawerOpen={drawerOpen}
-							toggleDrawer={toggleDrawer}
-						>
-							{/*We're not using the modal drawer */}
-							{/*need to add our own obfuscator for mobile devices*/}
-							<Obfuscator
-								open={drawerOpen && window.innerWidth < 800}
+		<ApolloProvider>
+			<DateProvider>
+				<ThemeProvider>
+					<BrowserRouter>
+						<UserProvider>
+							<AppBar toggleDrawer={toggleDrawer} />
+							<NavDrawer
+								drawerOpen={drawerOpen}
 								toggleDrawer={toggleDrawer}
-							/>
-							<Content />
-						</NavDrawer>
-					</AppProvider>
-				</BrowserRouter>
+							>
+								<Obfuscator
+									open={drawerOpen && window.innerWidth < 800}
+									toggleDrawer={toggleDrawer}
+								/>
+								<Content />
+							</NavDrawer>
+						</UserProvider>
+					</BrowserRouter>
 
-				<SnackbarQueue
-					messages={MessageQueue.messages}
-					dismissesOnAction
-					timeout={2000}
-				/>
-				<Dialogs dialogs={DialogQueue.dialogs} />
-			</div>
-		</ThemeProvider>
+					<SnackbarQueue
+						messages={MessageQueue.messages}
+						dismissesOnAction
+						timeout={2000}
+					/>
+					<Dialogs dialogs={DialogQueue.dialogs} />
+				</ThemeProvider>
+			</DateProvider>
+		</ApolloProvider>
 	);
 };
 

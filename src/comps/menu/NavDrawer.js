@@ -13,7 +13,7 @@ import { List, SimpleListItem } from '@rmwc/list';
 
 import '@material/list/dist/mdc.list.css';
 import '@rmwc/list/collapsible-list.css';
-import AppContext from '../context/AppContext';
+import UserContext from '../context/UserContext';
 import { useLocation } from 'react-router-dom';
 import MenuItem from './MenuItem';
 import backend from '../../tools/backend';
@@ -39,7 +39,7 @@ const useStyles = createUseStyles({
 const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 	const classes = useStyles();
 
-	const context = React.useContext(AppContext);
+	const user = React.useContext(UserContext);
 
 	const location = useLocation();
 
@@ -54,7 +54,7 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 
 	const attemptLogout = () => {
 		backend.get('/api/auth/logout').then(() => {
-			context.updateState();
+			user.updateState();
 		});
 	};
 
@@ -68,16 +68,16 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 						className={classes.DrawerLogo}
 					/>
 					<DrawerTitle>
-						{context.signedIn ? context.user.name : 'Not Signed In'}
+						{user.signedIn ? user.name : 'Not Signed In'}
 					</DrawerTitle>
 					<DrawerSubtitle>
-						{context.signedIn ? context.user.email : ''}
+						{user.signedIn ? user.email : ''}
 					</DrawerSubtitle>
 				</DrawerHeader>
 
 				<DrawerContent className={['DrawerContent']}>
 					<List>
-						{context.signedIn && (
+						{user.signedIn && (
 							<SimpleListItem
 								graphic="power_settings_new"
 								text="Sign Out"
@@ -85,18 +85,16 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 							/>
 						)}
 
-						{context.signedIn && context.admin.status && (
-							<AdminItems />
-						)}
+						{Boolean(user?.adminRoles) && <AdminItems />}
 
-						{context.signedIn && context.campaignManager.status && (
-							<MenuItem
-								to={'/campaign'}
-								text={'Campaign'}
-								icon={'assignment_ind'}
-								activeRoute={'/campaign'}
-							/>
-						)}
+						{/*{user.signedIn && user.campaignManager.status && (*/}
+						{/*	<MenuItem*/}
+						{/*		to={'/campaign'}*/}
+						{/*		text={'Campaign'}*/}
+						{/*		icon={'assignment_ind'}*/}
+						{/*		activeRoute={'/campaign'}*/}
+						{/*	/>*/}
+						{/*)}*/}
 
 						<MenuItem
 							to={'/'}

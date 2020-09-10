@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useCallback } from 'react';
 
-import AppContext from '../comps/context/AppContext';
+import UserContext from '../comps/context/UserContext';
 import { API_URL } from '../constants';
 
 import ApiCache from './ApiCache';
@@ -10,7 +10,7 @@ import useIsOnline from './useIsOnline';
 const maxAge = 1000 * 86400 * 14;
 
 const useApi = (url, defaultVal = null, handleError = true) => {
-	const context = React.useContext(AppContext);
+	const context = React.useContext(UserContext);
 	const isOnline = useIsOnline();
 
 	const [storedInfo, setStoredInfo] = React.useState({

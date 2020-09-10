@@ -1,12 +1,13 @@
 import React from 'react';
-import { Switch, Route, useLocation } from 'react-router-dom';
-import { Elections } from '../pages/Elections';
+import { Route, Switch, useLocation } from 'react-router-dom';
+import Elections from './elections';
 import { Helmet } from 'react-helmet';
 import { PUBLIC_URL } from '../constants';
 import { sendPageView } from '../tools/GoogleAnalytics';
-import Admin from '../pages/Admin';
-import ErrorPage from '../pages/ErrorPage';
+import Admin from './Admin';
+import ErrorPage from './ErrorPage';
 import SearchingVector from '../vectors/searching.svg';
+import layout from '../styles/Layout.module.css';
 
 const Content = () => {
 	const location = useLocation();
@@ -14,7 +15,7 @@ const Content = () => {
 	React.useEffect(sendPageView, [location]);
 
 	return (
-		<div>
+		<div className={layout.container}>
 			{/*(Mostly) Constant Open Graph Properties*/}
 			<Helmet>
 				<meta
@@ -39,18 +40,20 @@ const Content = () => {
 				<title>Stuy BOE Voting Site</title>
 			</Helmet>
 
-			<Switch>
-				<Route path={'/'} component={Hello} exact />
-				<Route path={'/elections'} component={Elections} />
-				<Route path={'/admin'} component={Admin} />
-				<Route path={'/'}>
-					<ErrorPage
-						image={SearchingVector}
-						title={'Page Not Found'}
-						subtitle={`We've looked everywhere...`}
-					/>
-				</Route>
-			</Switch>
+			<main className={layout.main}>
+				<Switch>
+					<Route path={'/'} component={Hello} exact />
+					<Route path={'/elections'} component={Elections} />
+					<Route path={'/admin'} component={Admin} />
+					<Route path={'/'}>
+						<ErrorPage
+							image={SearchingVector}
+							title={'Page Not Found'}
+							subtitle={`We've looked everywhere...`}
+						/>
+					</Route>
+				</Switch>
+			</main>
 		</div>
 	);
 };

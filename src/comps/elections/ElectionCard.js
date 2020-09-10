@@ -19,13 +19,13 @@ import moment from 'moment';
 import urlJoin from 'url-join';
 
 import { API_URL } from '../../constants';
-import AppContext from '../context/AppContext';
 
 import { createUseStyles } from 'react-jss';
 import Title from '../../typography/Title';
 import Subtitle from '../../typography/Subtitle';
 
 import MediaErrorVector from '../../vectors/media-error.svg';
+import { DateContext } from '../context/DateProvider';
 
 const useStyles = createUseStyles({
 	Media: {
@@ -42,17 +42,17 @@ const useStyles = createUseStyles({
 });
 
 const ElectionCard = props => {
-	const start = new Date(props.startTime);
-	const end = new Date(props.endTime);
+	const start = new Date(props.start);
+	const end = new Date(props.end);
 
-	const context = React.useContext(AppContext);
+	const date = React.useContext(DateContext);
 
-	const [now, setNow] = React.useState(context.getDate());
+	const [now, setNow] = React.useState(date.getNow());
 
 	const updateNow = () => {
 		if (!props.completed && now <= end) {
 			// We passed it as a function object to prevent calling it immediately
-			const timeoutID = setTimeout(() => setNow(context.getDate()), 1000);
+			const timeoutID = setTimeout(() => setNow(date.getNow()), 1000);
 
 			// In the case that the component unmounts before the timeout goes off
 			// Clear the timeout to prevent setting the state of an unmounted component
@@ -62,12 +62,12 @@ const ElectionCard = props => {
 
 	React.useEffect(updateNow, [now]);
 
-	let to = generatePath(props.to, { publicUrl: props.publicUrl });
+	let to = generatePath(props.to, { url: props.url });
 
 	const electionPic = urlJoin(
 		API_URL,
 		'/api/s3',
-		props.picture,
+		// props.picture,
 		`?width=400`,
 		`?flags=lossy`,
 		`?quality=95`,

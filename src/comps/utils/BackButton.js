@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@rmwc/button';
 import { Link } from 'react-router-dom';
+
 type PropTypes = {
 	text: string,
 	to: string

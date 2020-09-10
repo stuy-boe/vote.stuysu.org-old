@@ -1,7 +1,6 @@
 // @flow
-import React from 'react';
-
 import type { Node } from 'react';
+import React from 'react';
 
 import { Button } from '@rmwc/button';
 import '@material/button/dist/mdc.button.css';

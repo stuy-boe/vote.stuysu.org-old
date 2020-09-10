@@ -1,8 +1,8 @@
 import React from 'react';
 import MenuItem from './MenuItem';
 import { CollapsibleList, SimpleListItem } from '@rmwc/list';
-import AppContext from '../context/AppContext';
-import { useRouteMatch, useLocation } from 'react-router-dom';
+import UserContext from '../context/UserContext';
+import { useLocation, useRouteMatch } from 'react-router-dom';
 
 const meta = {
 	elections: {
@@ -19,7 +19,7 @@ const AdminItems = () => {
 	const adminBaseRoute = `/admin`;
 	const routeMatch = useRouteMatch(adminBaseRoute);
 	const [isOpen, setIsOpen] = React.useState(Boolean(routeMatch));
-	const context = React.useContext(AppContext);
+	const context = React.useContext(UserContext);
 	const location = useLocation();
 
 	const privileges = context.admin.privileges || [];

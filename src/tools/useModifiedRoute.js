@@ -1,4 +1,4 @@
-import { useRouteMatch, generatePath } from 'react-router-dom';
+import { generatePath, useRouteMatch } from 'react-router-dom';
 
 const useModifiedRoute = (newRoute, baseRoute) => {
 	const routeMatch = useRouteMatch(baseRoute);
