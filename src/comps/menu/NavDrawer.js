@@ -8,8 +8,6 @@ import {
 	DrawerTitle
 } from '@rmwc/drawer';
 import '@material/drawer/dist/mdc.drawer.css';
-import { Icon } from '@rmwc/icon';
-import google from './../../img/icons/google.svg';
 import { List, SimpleListItem } from '@rmwc/list';
 
 import '@material/list/dist/mdc.list.css';
@@ -17,7 +15,6 @@ import '@rmwc/list/collapsible-list.css';
 import UserContext from '../context/UserContext';
 import { useLocation } from 'react-router-dom';
 import MenuItem from './MenuItem';
-import backend from '../../tools/backend';
 
 import { createUseStyles } from 'react-jss';
 import ElectionItems from './ElectionItems';

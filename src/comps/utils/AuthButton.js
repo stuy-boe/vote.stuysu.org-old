@@ -1,9 +1,6 @@
 import React from 'react';
-import { API_URL, GOOGLE_CLIENT_ID } from '../../constants';
-import DialogQueue from '../queues/DialogQueue';
-import Text from '../../typography/Text';
-import GoogleLogin, { useGoogleLogin } from 'react-google-login';
-import urlJoin from 'url-join';
+import { GOOGLE_CLIENT_ID } from '../../constants';
+import { useGoogleLogin } from 'react-google-login';
 import { Icon } from '@rmwc/icon';
 import google from '../../img/icons/google.svg';
 import { SimpleListItem } from '@rmwc/list';
@@ -21,7 +18,7 @@ const AuthButton = () => {
 
 	const user = React.useContext(UserContext);
 
-	const { signIn, loaded } = useGoogleLogin({
+	const { signIn } = useGoogleLogin({
 		onSuccess: ({ tokenId }) => {
 			performLogin({ variables: { idToken: tokenId } }).then(res => {
 				localStorage.setItem('auth-jwt', res.data.login);
