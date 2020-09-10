@@ -12,7 +12,7 @@ export const PUBLIC_URL = process.env.PUBLIC_URL || '';
 export const HONEYBADGER_KEY = process.env.REACT_APP_HONEYBADGER_KEY || '';
 
 export const GRAPHQL_URI =
-	process.env.REACT_APP_GRAPHQL_URI || 'http://localhost:3001/graphql';
+	process.env.REACT_APP_GRAPHQL_URI || 'https://api-vote.stuysu.org/graphql';
 
 export const CLOUDINARY_CLOUD =
 	process.env.REACT_APP_CLOUDINARY_CLOUD || 'stuyboe';

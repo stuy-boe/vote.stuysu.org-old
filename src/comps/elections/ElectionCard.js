@@ -16,21 +16,19 @@ import { generatePath, Link } from 'react-router-dom';
 
 import moment from 'moment';
 
-import urlJoin from 'url-join';
-
-import { API_URL } from '../../constants';
-
 import { createUseStyles } from 'react-jss';
 import Title from '../../typography/Title';
 import Subtitle from '../../typography/Subtitle';
 
 import MediaErrorVector from '../../vectors/media-error.svg';
 import { DateContext } from '../context/DateProvider';
+import cloudinaryCore from '../../utils/cloudinaryCore';
 
 const useStyles = createUseStyles({
 	Media: {
 		backgroundImage: props =>
-			`url(${props.electionPic}), url(${MediaErrorVector})`
+			`url(${props.electionPic}), url(${MediaErrorVector})`,
+		height: '200px'
 	},
 	TextContainer: {
 		padding: '0 1rem 1rem 1rem'
@@ -64,15 +62,11 @@ const ElectionCard = props => {
 
 	let to = generatePath(props.to, { url: props.url });
 
-	const electionPic = urlJoin(
-		API_URL,
-		'/api/s3',
-		// props.picture,
-		`?width=400`,
-		`?flags=lossy`,
-		`?quality=95`,
-		`?background=white`
-	);
+	const electionPic = cloudinaryCore.url(props.picture.publicId, {
+		secure: true,
+		quality: 95,
+		flags: 'lossy'
+	});
 
 	const classes = useStyles({ electionPic });
 

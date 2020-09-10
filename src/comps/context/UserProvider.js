@@ -14,6 +14,7 @@ const USER_QUERY = gql`
 			name
 			email
 			grade
+			gradYear
 			adminRoles
 		}
 	}

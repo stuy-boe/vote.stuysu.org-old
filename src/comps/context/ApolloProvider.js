@@ -18,8 +18,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const uploadLink = createUploadLink({
-	uri: GRAPHQL_URI,
-	credentials: 'include'
+	uri: GRAPHQL_URI
 });
 
 export const client = new ApolloClient({

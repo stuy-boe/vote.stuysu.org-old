@@ -55,9 +55,8 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 	React.useEffect(handleNavigation, [location]);
 
 	const attemptLogout = () => {
-		backend.get('/api/auth/logout').then(() => {
-			user.updateState();
-		});
+		window.localStorage.clear();
+		user.refetch();
 	};
 
 	return (

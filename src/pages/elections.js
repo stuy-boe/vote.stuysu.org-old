@@ -7,13 +7,16 @@ import { Helmet } from 'react-helmet';
 import ElectionCard from '../comps/elections/ElectionCard';
 import { gql, useQuery } from '@apollo/client';
 import Loading from '../comps/utils/Loading';
+import UserContext from '../comps/context/UserContext';
 
 const ELECTIONS_QUERY = gql`
 	query {
 		elections {
+			id
 			name
 			start
 			end
+			allowedGradYears
 			url
 			picture {
 				publicId
@@ -26,10 +29,24 @@ const ELECTIONS_QUERY = gql`
 const Elections = () => {
 	const { data, loading } = useQuery(ELECTIONS_QUERY);
 
+	const user = React.useContext(UserContext);
+
 	if (loading) {
 		return <Loading />;
 	}
 
+	const elections = !user?.gradYear
+		? data.elections
+		: Array.from(data?.elections).sort((a, b) => {
+				if (a.allowedGradYears.includes(user?.gradYear)) {
+					return -1;
+				}
+
+				if (b.allowedGradYears.includes(user.gradYear)) {
+					return 1;
+				}
+				return 0;
+		  });
 	return (
 		<div>
 			<Helmet>
@@ -44,9 +61,9 @@ const Elections = () => {
 				/>
 			</Helmet>
 
-			<Grid fixedColumnWidth align={'left'}>
-				{data?.elections?.map(election => (
-					<ElectionCell election={election} key={election.url} />
+			<Grid align={'left'}>
+				{elections?.map(election => (
+					<ElectionCell election={election} key={election.id} />
 				))}
 			</Grid>
 		</div>
