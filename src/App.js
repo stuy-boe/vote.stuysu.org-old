@@ -19,11 +19,9 @@ import '@rmwc/dialog/styles';
 import ApolloProvider from './comps/context/ApolloProvider';
 import DateProvider from './comps/context/DateProvider';
 
-
-
 const App = () => {
 	// If the device has a sufficiently large screen, the drawer is open by default
-	const [drawerOpen, setDrawerOpen] = React.useState(window.innerWidth > 800);
+	const [drawerOpen, setDrawerOpen] = React.useState(window.innerWidth > 980);
 
 	const toggleDrawer = newState => {
 		if (!newState) {
@@ -33,7 +31,7 @@ const App = () => {
 	};
 
 	window.onresize = event => {
-		const shouldBeOpen = window.innerWidth > 800;
+		const shouldBeOpen = window.innerWidth > 980;
 
 		if (event.isTrusted && drawerOpen !== shouldBeOpen) {
 			setDrawerOpen(shouldBeOpen);

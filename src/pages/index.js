@@ -8,6 +8,7 @@ import Admin from './Admin';
 import ErrorPage from './ErrorPage';
 import SearchingVector from '../vectors/searching.svg';
 import layout from '../styles/Layout.module.css';
+import ElectionRouter from './election';
 
 const Content = () => {
 	const location = useLocation();
@@ -15,7 +16,7 @@ const Content = () => {
 	React.useEffect(sendPageView, [location]);
 
 	return (
-		<div className={layout.container}>
+		<div>
 			{/*(Mostly) Constant Open Graph Properties*/}
 			<Helmet>
 				<meta
@@ -40,20 +41,19 @@ const Content = () => {
 				<title>Stuy BOE Voting Site</title>
 			</Helmet>
 
-			<main className={layout.main}>
-				<Switch>
-					<Route path={'/'} component={Hello} exact />
-					<Route path={'/elections'} component={Elections} />
-					<Route path={'/admin'} component={Admin} />
-					<Route path={'/'}>
-						<ErrorPage
-							image={SearchingVector}
-							title={'Page Not Found'}
-							subtitle={`We've looked everywhere...`}
-						/>
-					</Route>
-				</Switch>
-			</main>
+			<Switch>
+				<Route path={'/'} component={Hello} exact />
+				<Route path={'/elections'} component={Elections} />
+				<Route path={'/election/:url'} component={ElectionRouter} />
+				<Route path={'/admin'} component={Admin} />
+				<Route path={'/'}>
+					<ErrorPage
+						image={SearchingVector}
+						title={'Page Not Found'}
+						subtitle={`We've looked everywhere...`}
+					/>
+				</Route>
+			</Switch>
 		</div>
 	);
 };

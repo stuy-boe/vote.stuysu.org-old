@@ -10,12 +10,18 @@
 
 		<title>{{ og.title }}</title>
 
-		<meta property="og:title" content="{{ og.title }}" />
-		<meta property="og:type" content="{{ og.type }}" />
-		<meta property="og:url" content="{{ og.url }}" />
-		<meta property="og:image" content="{{ og.image }}" />
-		<meta property="og:description" content="{{ og.description }}" />
-		<meta property="og:site_name" content="{{ og.siteName }}" />
+		<meta property="og:url" content="%PUBLIC_URL%/" />
+		<meta
+			property="og:site_name"
+			content="Stuyvesant Board of Elections Voting Site"
+		/>
+		<meta property="og:type" content="website" />
+		<meta
+			property="og:description"
+			content="This is where voting as well as campaigning for Student Union elections takes place."
+		/>
+		<meta property="og:image" content="%PUBLIC_URL%/img/logo512.png" />
+		<title>Stuy BOE Voting Site</title>
 
 		<link
 			rel="stylesheet"
