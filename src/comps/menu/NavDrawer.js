@@ -93,7 +93,7 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 							/>
 						)}
 
-						{Boolean(user?.adminRoles) && <AdminItems />}
+						{Boolean(user?.adminRoles?.length) && <AdminItems />}
 
 						{/*{user.signedIn && user.campaignManager.status && (*/}
 						{/*	<MenuItem*/}
