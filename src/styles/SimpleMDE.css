@@ -1,0 +1,14 @@
+.simpleMDE .CodeMirror {
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.simpleMDE .editor-toolbar {
+    border: 0;
+}
+
+.simpleMDE .editor-preview a {
+    color: #6200ee;
+    text-decoration: underline;
+}

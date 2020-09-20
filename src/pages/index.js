@@ -7,8 +7,14 @@ import { sendPageView } from '../tools/GoogleAnalytics';
 import Admin from './Admin';
 import ErrorPage from './ErrorPage';
 import SearchingVector from '../vectors/searching.svg';
-import layout from '../styles/Layout.module.css';
 import ElectionRouter from './election';
+import layout from './../styles/Layout.module.css';
+import voting from './../vectors/voting.svg';
+import UserContext from '../comps/context/UserContext';
+import { Button } from '@rmwc/button';
+import google from '../img/icons/google.svg';
+import useAuth from '../comps/utils/UseAuth';
+import UnstyledLink from '../comps/utils/UnstyledLink';
 
 const Content = () => {
 	const location = useLocation();
@@ -59,6 +65,9 @@ const Content = () => {
 };
 
 function Hello() {
+	const user = React.useContext(UserContext);
+	const { signIn, loading } = useAuth();
+
 	return (
 		<div>
 			<Helmet>
@@ -68,7 +77,31 @@ function Hello() {
 					content={'Home | Stuy BOE Voting Site'}
 				/>
 			</Helmet>
-			<h1>Hello World!</h1>
+
+			<div className={layout.container}>
+				<main className={layout.main} style={{ textAlign: 'center' }}>
+					<img
+						src={voting}
+						alt={'People voting'}
+						style={{ width: '500px', maxWidth: '90%' }}
+					/>
+					<h2>Welcome To The Board of Elections Voting Site</h2>
+					{user.signedIn ? (
+						<UnstyledLink to={'/elections'}>
+							<Button outlined>Check Out Elections</Button>
+						</UnstyledLink>
+					) : (
+						<Button
+							icon={{ icon: google, size: 'xlarge' }}
+							outlined
+							onClick={signIn}
+							disabled={loading}
+						>
+							Sign In With Google
+						</Button>
+					)}
+				</main>
+			</div>
 		</div>
 	);
 }

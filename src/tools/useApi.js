@@ -6,24 +6,26 @@ import { API_URL } from '../constants';
 
 import ApiCache from './ApiCache';
 import useIsOnline from './useIsOnline';
+import { DateContext } from '../comps/context/DateProvider';
 
 const maxAge = 1000 * 86400 * 14;
 
 const useApi = (url, defaultVal = null, handleError = true) => {
 	const context = React.useContext(UserContext);
+	const date = React.useContext(DateContext);
 	const isOnline = useIsOnline();
 
 	const [storedInfo, setStoredInfo] = React.useState({
 		data: defaultVal,
 		checked: false,
-		lastUpdated: context.getDate()
+		lastUpdated: date.getNow()
 	});
 
 	const [serverInfo, setServerInfo] = React.useState({
 		data: null,
 		checked: false,
 		error: null,
-		lastUpdated: context.getDate()
+		lastUpdated: date.getNow()
 	});
 
 	const [cancelTokenSource, setCancelTokenSource] = React.useState(
@@ -49,12 +51,12 @@ const useApi = (url, defaultVal = null, handleError = true) => {
 					data: res.data.payload,
 					checked: true,
 					error: false,
-					lastUpdated: context.getDate()
+					lastUpdated: date.getNow()
 				});
 
 				await ApiCache.delete(url);
 
-				await ApiCache.create(url, res.data.payload, context.getDate());
+				await ApiCache.create(url, res.data.payload, date.getNow());
 			})
 			.catch(er => {
 				if (!axios.isCancel(er)) {
@@ -62,11 +64,11 @@ const useApi = (url, defaultVal = null, handleError = true) => {
 						data: null,
 						checked: true,
 						error: er,
-						lastUpdated: context.getDate()
+						lastUpdated: date.getNow()
 					});
 				}
 			});
-	}, [context, cancelTokenSource, url]);
+	}, [url, cancelTokenSource.token, date]);
 
 	React.useEffect(() => {
 		if (!storedInfo.checked) {
@@ -77,10 +79,9 @@ const useApi = (url, defaultVal = null, handleError = true) => {
 				if (entry !== null && entry?.date?.getTime()) {
 					// Check to see if the data is expired
 					const isFresh =
-						new Date(entry.date.getTime() + maxAge) >
-						context.getDate();
+						new Date(entry.date.getTime() + maxAge) > date.getNow();
 					data = isFresh ? entry.data : defaultVal;
-					lastUpdated = context.getDate();
+					lastUpdated = date.getNow();
 				}
 
 				setStoredInfo({
@@ -108,7 +109,8 @@ const useApi = (url, defaultVal = null, handleError = true) => {
 		serverInfo,
 		storedInfo,
 		cancelTokenSource,
-		updateData
+		updateData,
+		date
 	]);
 
 	let data, updated, lastUpdated;

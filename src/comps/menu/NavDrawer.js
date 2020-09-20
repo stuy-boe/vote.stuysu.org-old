@@ -19,7 +19,9 @@ import MenuItem from './MenuItem';
 import { createUseStyles } from 'react-jss';
 import ElectionItems from './ElectionItems';
 import AdminItems from './AdminItems';
-import AuthButton from '../utils/AuthButton';
+import useAuth from '../utils/UseAuth';
+import { Icon } from '@rmwc/icon';
+import google from '../../img/icons/google.svg';
 
 const useStyles = createUseStyles({
 	NavDrawer: {
@@ -36,6 +38,7 @@ const useStyles = createUseStyles({
 });
 
 const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
+	const { signIn, loading } = useAuth();
 	const classes = useStyles();
 
 	const user = React.useContext(UserContext);
@@ -82,7 +85,12 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 								onClick={attemptLogout}
 							/>
 						) : (
-							<AuthButton />
+							<SimpleListItem
+								disabled={loading}
+								graphic={<Icon icon={google} />}
+								text="Sign In With Google"
+								onClick={signIn}
+							/>
 						)}
 
 						{Boolean(user?.adminRoles) && <AdminItems />}
@@ -98,7 +106,7 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 
 						<MenuItem
 							to={'/'}
-							text={'Your Feed'}
+							text={'Home'}
 							icon={'home'}
 							activeRoute={'/'}
 							exactRoute
@@ -106,19 +114,19 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 
 						<ElectionItems />
 
-						<MenuItem
-							to={'/contact'}
-							text={'Contact Us'}
-							icon={'chat_bubble'}
-							activeRoute={'/contact'}
-						/>
+						{/*<MenuItem*/}
+						{/*	to={'/contact'}*/}
+						{/*	text={'Contact Us'}*/}
+						{/*	icon={'chat_bubble'}*/}
+						{/*	activeRoute={'/contact'}*/}
+						{/*/>*/}
 
-						<MenuItem
-							to={'/help'}
-							text={'Help'}
-							icon={'help'}
-							activeRoute={'/help'}
-						/>
+						{/*<MenuItem*/}
+						{/*	to={'/help'}*/}
+						{/*	text={'Help'}*/}
+						{/*	icon={'help'}*/}
+						{/*	activeRoute={'/help'}*/}
+						{/*/>*/}
 					</List>
 				</DrawerContent>
 			</Drawer>

@@ -1,59 +1,19 @@
 import React from 'react';
-import MenuItem from './MenuItem';
-import { CollapsibleList } from '@rmwc/list';
-import { useRouteMatch } from 'react-router-dom';
+import { SimpleListItem } from '@rmwc/list';
+import { Link, useRouteMatch } from 'react-router-dom';
 
 const ElectionItems = () => {
-	const electionIsSelected = useRouteMatch('/elections/:id');
+	const onElectionsPage = useRouteMatch('/elections');
+	const onElectionPage = useRouteMatch('/election');
 
-	const selectedElectionBaseRoute = '/elections/:publicUrl';
 	return (
-		<CollapsibleList
-			handle={
-				<MenuItem
-					to={'/elections'}
-					text={'Elections'}
-					icon={'how_to_vote'}
-					activeRoute={'/elections'}
-					metaIcon={'chevron_right'}
-					exactRoute
-				/>
-			}
-			open={electionIsSelected}
-		>
-			<MenuItem
-				to={selectedElectionBaseRoute}
-				baseRoute={selectedElectionBaseRoute}
-				text={'Overview'}
-				icon={'dashboard'}
-				activeRoute={selectedElectionBaseRoute}
-				exactRoute
+		<Link to={'/elections'}>
+			<SimpleListItem
+				activated={onElectionsPage || onElectionPage}
+				text={'Elections'}
+				graphic={'how_to_vote'}
 			/>
-
-			<MenuItem
-				to={`${selectedElectionBaseRoute}/candidates`}
-				baseRoute={selectedElectionBaseRoute}
-				text={'Candidates'}
-				icon={'people'}
-				activeRoute={`${selectedElectionBaseRoute}/candidates`}
-			/>
-
-			<MenuItem
-				to={`${selectedElectionBaseRoute}/vote`}
-				baseRoute={selectedElectionBaseRoute}
-				text={'Vote'}
-				icon={'where_to_vote'}
-				activeRoute={`${selectedElectionBaseRoute}/vote`}
-			/>
-
-			<MenuItem
-				to={`${selectedElectionBaseRoute}/results`}
-				baseRoute={selectedElectionBaseRoute}
-				text={'Results'}
-				icon={'ballot'}
-				activeRoute={`${selectedElectionBaseRoute}/results`}
-			/>
-		</CollapsibleList>
+		</Link>
 	);
 };
 

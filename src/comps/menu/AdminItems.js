@@ -9,7 +9,7 @@ const meta = {
 		icon: 'poll',
 		title: 'Elections'
 	},
-	posters: {
+	updates: {
 		icon: 'find_in_page',
 		title: 'Poster Review'
 	}

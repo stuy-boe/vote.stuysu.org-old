@@ -5,12 +5,15 @@ import AdminElectionsRouter from '../comps/admin/AdminElectionsRouter';
 import AccessDeniedVector from '../vectors/x-on-laptop.svg';
 import SignInVector from '../vectors/carrying-key.svg';
 import ErrorPage from './ErrorPage';
-import AuthButton from '../comps/utils/AuthButton';
+import useAuth from '../comps/utils/UseAuth';
 import FlexCenter from '../comps/utils/FlexCenter';
+import { Button } from '@rmwc/button';
+import google from './../img/icons/google.svg';
 
 const Admin = ({ match }) => {
-	const context = React.useContext(UserContext);
-	if (!context.signedIn) {
+	const { signIn, loading } = useAuth();
+	const user = React.useContext(UserContext);
+	if (!user.signedIn) {
 		return (
 			<ErrorPage
 				title={'Sign In Required'}
@@ -22,14 +25,21 @@ const Admin = ({ match }) => {
 				}
 			>
 				<FlexCenter>
-					<AuthButton />
+					<Button
+						icon={{ icon: google, size: 'xlarge' }}
+						outlined
+						onClick={signIn}
+						disabled={loading}
+					>
+						Sign In With Google
+					</Button>
 				</FlexCenter>
 			</ErrorPage>
 		);
 	}
 
 	// TODO: make this route pretty for non-admins
-	if (!context.admin.status) {
+	if (!user.adminRoles?.length) {
 		return (
 			<ErrorPage
 				title={'Access Denied'}
@@ -43,9 +53,7 @@ const Admin = ({ match }) => {
 		<div>
 			<Switch>
 				<Route path={match.path} exact>
-					<Redirect
-						to={`${match.path}/${context.admin.privileges[0]}`}
-					/>
+					<Redirect to={`${match.path}/${user.adminRoles[0]}`} />
 				</Route>
 				<Route
 					path={`${match.path}/elections`}

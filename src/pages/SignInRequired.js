@@ -1,7 +1,7 @@
 import React from 'react';
 import FlexCenter from '../comps/utils/FlexCenter';
 import Title from '../typography/Title';
-import AuthButton from '../comps/utils/AuthButton';
+import useAuth from '../comps/utils/UseAuth';
 
 import { createUseStyles } from 'react-jss';
 
@@ -29,7 +29,7 @@ const SignInRequired = () => {
 					/>
 				</FlexCenter>
 				<FlexCenter>
-					<AuthButton />
+					<useAuth />
 				</FlexCenter>
 			</div>
 		</FlexCenter>
