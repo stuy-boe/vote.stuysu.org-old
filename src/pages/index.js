@@ -4,7 +4,7 @@ import Elections from './elections';
 import { Helmet } from 'react-helmet';
 import { PUBLIC_URL } from '../constants';
 import { sendPageView } from '../tools/GoogleAnalytics';
-import Admin from './Admin';
+import Admin from './election/admin';
 import ErrorPage from './ErrorPage';
 import SearchingVector from '../vectors/searching.svg';
 import ElectionRouter from './election';

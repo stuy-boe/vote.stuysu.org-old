@@ -1,14 +1,15 @@
 import React from 'react';
-import UserContext from '../comps/context/UserContext';
+import UserContext from '../../../comps/context/UserContext';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import AdminElectionsRouter from '../comps/admin/AdminElectionsRouter';
-import AccessDeniedVector from '../vectors/x-on-laptop.svg';
-import SignInVector from '../vectors/carrying-key.svg';
-import ErrorPage from './ErrorPage';
-import useAuth from '../comps/utils/UseAuth';
-import FlexCenter from '../comps/utils/FlexCenter';
+import AdminElectionsRouter from '../../../comps/admin/AdminElectionsRouter';
+import AccessDeniedVector from '../../../vectors/x-on-laptop.svg';
+import SignInVector from '../../../vectors/carrying-key.svg';
+import ErrorPage from '../../ErrorPage';
+import useAuth from '../../../comps/utils/UseAuth';
+import FlexCenter from '../../../comps/utils/FlexCenter';
 import { Button } from '@rmwc/button';
-import google from './../img/icons/google.svg';
+import google from '../../../img/icons/google.svg';
+import Updates from './updates';
 
 const Admin = ({ match }) => {
 	const { signIn, loading } = useAuth();
@@ -53,12 +54,9 @@ const Admin = ({ match }) => {
 		<div>
 			<Switch>
 				<Route path={match.path} exact>
-					<Redirect to={`${match.path}/${user.adminRoles[0]}`} />
+					<Redirect to={`${match.path}/updates`} />
 				</Route>
-				<Route
-					path={`${match.path}/elections`}
-					component={AdminElectionsRouter}
-				/>
+				<Route path={`${match.path}/updates`} component={Updates} />
 			</Switch>
 		</div>
 	);

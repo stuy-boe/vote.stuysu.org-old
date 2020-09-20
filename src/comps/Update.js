@@ -27,6 +27,7 @@ const Update = ({
 	candidate,
 	official,
 	approval,
+	extra,
 	showPending
 }) => {
 	const classes = useStyles();
@@ -85,6 +86,7 @@ const Update = ({
 					)}
 				</div>
 			)}
+			{extra}
 		</Card>
 	);
 };
