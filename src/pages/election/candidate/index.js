@@ -15,6 +15,7 @@ import DialogQueue from '../../../comps/queues/DialogQueue';
 import { createUseStyles } from 'react-jss';
 import { Icon } from '@rmwc/icon';
 import MessageQueue from '../../../comps/queues/MessageQueue';
+import { Helmet } from 'react-helmet';
 
 const useStyles = createUseStyles({
 	obfuscator: {
@@ -183,6 +184,13 @@ const Candidate = ({ match, history }) => {
 	if (!candidate) {
 		return (
 			<div className={layout.container}>
+				<Helmet>
+					<title>Page Not Found | StuyBOE Voting Site</title>
+					<meta
+						property={'og:title'}
+						content={'Page Not Found | StuyBOE Voting Site'}
+					/>
+				</Helmet>
 				<main className={layout.main}>
 					<img
 						src={notFound}
@@ -202,6 +210,21 @@ const Candidate = ({ match, history }) => {
 
 	return (
 		<div>
+			<Helmet>
+				<title>{candidate.name} | StuyBOE Voting Site</title>
+				<meta
+					property={'og:title'}
+					content={`${candidate.name} | StuyBOE Voting Site`}
+				/>
+				<meta
+					property={'og:description'}
+					content={`${candidate.name} is a candidate for ${election.name}. View their official page and latest updates.`}
+				/>
+				<meta
+					property={'og:image'}
+					content={candidate.profilePic.defaultUrl}
+				/>
+			</Helmet>
 			<div
 				style={{
 					width: '100%',

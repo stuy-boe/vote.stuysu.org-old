@@ -5,13 +5,13 @@ import UserContext from '../context/UserContext';
 import { useLocation, useRouteMatch } from 'react-router-dom';
 
 const meta = {
-	elections: {
-		icon: 'poll',
-		title: 'Elections'
-	},
+	// elections: {
+	// 	icon: 'poll',
+	// 	title: 'Elections'
+	// },
 	updates: {
 		icon: 'find_in_page',
-		title: 'Poster Review'
+		title: 'Updates Approval'
 	}
 };
 
@@ -50,6 +50,10 @@ const AdminItems = () => {
 			open={isOpen || routeMatch}
 		>
 			{privileges.map(privilege => {
+				if (!meta[privilege]) {
+					return null;
+				}
+
 				return (
 					<MenuItem
 						to={`${adminBaseRoute}/${privilege}`}

@@ -16,12 +16,12 @@ import shuffleArray from '../../utils/shuffleArray';
 
 const responsive = {
 	desktop: {
-		breakpoint: { max: 3000, min: 1100 },
+		breakpoint: { max: 3000, min: 600 },
 		items: 2,
 		slidesToSlide: 2 // optional, default to 1.
 	},
 	mobile: {
-		breakpoint: { max: 1100, min: 0 },
+		breakpoint: { max: 600, min: 0 },
 		items: 1,
 		slidesToSlide: 1 // optional, default to 1.
 	}

@@ -61,7 +61,7 @@ const App = () => {
 					<SnackbarQueue
 						messages={MessageQueue.messages}
 						dismissesOnAction
-						timeout={2000}
+						timeout={4000}
 					/>
 					<Dialogs dialogs={DialogQueue.dialogs} />
 				</ThemeProvider>

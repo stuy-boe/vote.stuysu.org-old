@@ -3,6 +3,7 @@ import { GOOGLE_CLIENT_ID } from '../../constants';
 import { useGoogleLogin } from 'react-google-login';
 import { gql, useMutation } from '@apollo/client';
 import UserContext from '../context/UserContext';
+import MessageQueue from '../queues/MessageQueue';
 
 const LOGIN_MUTATION = gql`
 	mutation($idToken: String!) {
@@ -17,10 +18,16 @@ const useAuth = () => {
 
 	const { signIn } = useGoogleLogin({
 		onSuccess: ({ tokenId }) => {
-			performLogin({ variables: { idToken: tokenId } }).then(res => {
-				localStorage.setItem('auth-jwt', res.data.login);
-				user.refetch();
-			});
+			performLogin({ variables: { idToken: tokenId } })
+				.then(res => {
+					localStorage.setItem('auth-jwt', res.data.login);
+					user.refetch();
+				})
+				.catch(er => {
+					MessageQueue.notify({
+						body: er.message
+					});
+				});
 		},
 		clientId: GOOGLE_CLIENT_ID,
 		isSignedIn: false,

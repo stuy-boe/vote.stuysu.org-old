@@ -76,6 +76,10 @@ function Hello() {
 					property="og:title"
 					content={'Home | Stuy BOE Voting Site'}
 				/>
+				<meta
+					property={'og:image'}
+					content={PUBLIC_URL + '/img/logo512.png'}
+				/>
 			</Helmet>
 
 			<div className={layout.container}>

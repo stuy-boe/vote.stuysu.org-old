@@ -14,6 +14,9 @@ import UnstyledLink from '../../comps/utils/UnstyledLink';
 import Vote from './vote';
 import Candidate from './candidate';
 import comments from '../../img/icons/comments.svg';
+import { Helmet } from 'react-helmet';
+import ErrorPage from '../ErrorPage';
+import searching from './../../vectors/searching.svg';
 
 export const ElectionContext = React.createContext({});
 
@@ -28,6 +31,7 @@ const ELECTION_QUERY = gql`
 				name
 				url
 				profilePic {
+					defaultUrl
 					publicId
 				}
 				coverPic {
@@ -38,6 +42,7 @@ const ELECTION_QUERY = gql`
 			}
 			picture {
 				defaultUrl
+				publicId
 			}
 			start
 			end
@@ -57,8 +62,47 @@ const ElectionRouter = ({ match }) => {
 		return <Loading />;
 	}
 
+	if (!data.election) {
+		return (
+			<ErrorPage
+				title={"We couldn't find an election at that url"}
+				back={null}
+				image={searching}
+				children={
+					<div style={{ textAlign: 'center' }}>
+						<Helmet>
+							<title>Page Not Found | StuyBOE Voting Site</title>
+							<meta
+								property={'og:title'}
+								content={'Page Not Found | StuyBOE Voting Site'}
+							/>
+						</Helmet>
+						<UnstyledLink to={'/elections'}>
+							<Button outlined>Back To Elections</Button>
+						</UnstyledLink>
+					</div>
+				}
+			/>
+		);
+	}
+
 	return (
 		<ElectionContext.Provider value={{ ...data.election, refetch }}>
+			<Helmet>
+				<title>{data.election.name} | StuyBOE Voting Site</title>
+				<meta
+					property={'og:title'}
+					content={`${data.election.name} | StuyBOE Voting Site`}
+				/>
+				<meta
+					property={'og:image'}
+					content={data.election.picture.defaultUrl}
+				/>
+				<meta
+					property={'og:description'}
+					content={`View candidates, vote, and see results for ${data.election.name}`}
+				/>
+			</Helmet>
 			<UnstyledLink to={'/elections'}>
 				<Button>Elections</Button>
 			</UnstyledLink>

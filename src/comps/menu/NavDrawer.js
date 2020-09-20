@@ -95,15 +95,6 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 
 						{Boolean(user?.adminRoles?.length) && <AdminItems />}
 
-						{/*{user.signedIn && user.campaignManager.status && (*/}
-						{/*	<MenuItem*/}
-						{/*		to={'/campaign'}*/}
-						{/*		text={'Campaign'}*/}
-						{/*		icon={'assignment_ind'}*/}
-						{/*		activeRoute={'/campaign'}*/}
-						{/*	/>*/}
-						{/*)}*/}
-
 						<MenuItem
 							to={'/'}
 							text={'Home'}
@@ -113,20 +104,6 @@ const NavDrawer = ({ toggleDrawer, drawerOpen, children }) => {
 						/>
 
 						<ElectionItems />
-
-						{/*<MenuItem*/}
-						{/*	to={'/contact'}*/}
-						{/*	text={'Contact Us'}*/}
-						{/*	icon={'chat_bubble'}*/}
-						{/*	activeRoute={'/contact'}*/}
-						{/*/>*/}
-
-						{/*<MenuItem*/}
-						{/*	to={'/help'}*/}
-						{/*	text={'Help'}*/}
-						{/*	icon={'help'}*/}
-						{/*	activeRoute={'/help'}*/}
-						{/*/>*/}
 					</List>
 				</DrawerContent>
 			</Drawer>
