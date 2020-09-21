@@ -50,7 +50,8 @@ const Update = ({
 											{
 												secure: true,
 												height: 50,
-												crop: 'fit',
+												width: 50,
+												crop: 'fill',
 												radius: 'max'
 											}
 									  ),
