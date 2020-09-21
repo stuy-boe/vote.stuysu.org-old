@@ -148,16 +148,17 @@ const ElectionNav = () => {
 												candidate.profilePic.publicId,
 												{
 													secure: true,
-													width: 100,
+													width: 200,
 													crop: 'fit',
 													radius: 'max'
 												}
 											)}
 											alt={'Candidate'}
 											style={{
-												objectFit: 'contain',
+												objectFit: 'cover',
 												position: 'absolute',
-
+												height: 100,
+												width: 100,
 												left: 'calc(50% - 50px)',
 												top: 50,
 												borderRadius: '50%',

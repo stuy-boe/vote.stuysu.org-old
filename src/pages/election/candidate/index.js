@@ -377,8 +377,8 @@ const Candidate = ({ match, history }) => {
 							tempPFPUrl ||
 							cloudinaryCore.url(candidate.profilePic.publicId, {
 								secure: true,
-								height: 175,
-								width: 175,
+								height: 350,
+								width: 350,
 								crop: 'fit',
 								radius: 'max'
 							})
@@ -387,7 +387,8 @@ const Candidate = ({ match, history }) => {
 							borderRadius: '50%',
 							border: '5px solid white',
 							height: 175,
-							width: 175
+							width: 175,
+							objectFit: 'cover'
 						}}
 						alt={'Profile'}
 					/>
