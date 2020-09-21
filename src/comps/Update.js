@@ -32,6 +32,8 @@ const Update = ({
 }) => {
 	const classes = useStyles();
 
+	console.log(official, candidate);
+
 	return (
 		<Card outlined style={{ margin: '1rem 0' }}>
 			<List twoLine nonInteractive>
@@ -63,6 +65,21 @@ const Update = ({
 					disallowedTypes={['image']}
 					escapeHtml={true}
 					source={content}
+					renderers={{
+						link: props => {
+							return (
+								<a
+									href={props.href}
+									style={{
+										color: '#0984e3',
+										textDecoration: 'underline'
+									}}
+								>
+									{props.children}
+								</a>
+							);
+						}
+					}}
 				/>
 				{Boolean(pictures?.length) && (
 					<>

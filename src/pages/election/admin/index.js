@@ -1,7 +1,6 @@
 import React from 'react';
 import UserContext from '../../../comps/context/UserContext';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import AdminElectionsRouter from '../../../comps/admin/AdminElectionsRouter';
 import AccessDeniedVector from '../../../vectors/x-on-laptop.svg';
 import SignInVector from '../../../vectors/carrying-key.svg';
 import ErrorPage from '../../ErrorPage';

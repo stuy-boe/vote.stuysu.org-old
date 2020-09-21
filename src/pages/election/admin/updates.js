@@ -4,7 +4,6 @@ import Update from '../../../comps/Update';
 import { Button } from '@rmwc/button';
 import Loading from '../../../comps/utils/Loading';
 import DialogQueue from '../../../comps/queues/DialogQueue';
-import MessageQueue from '../../../comps/queues/MessageQueue';
 
 const UPDATES = gql`
 	query {
@@ -18,9 +17,18 @@ const UPDATES = gql`
 			}
 			pictures {
 				publicId
+				defaultUrl
+			}
+			link {
+				url
+				title
+				image
+				description
+				siteName
 			}
 			showOnHome
 			pinned
+			official
 			candidate {
 				name
 				profilePic {
@@ -51,14 +59,18 @@ const REVIEW = gql`
 `;
 
 const Updates = () => {
-	const { data, loading, refetch } = useQuery(UPDATES, {
+	const { data, loading, refetch, error } = useQuery(UPDATES, {
 		fetchPolicy: 'no-cache'
 	});
 
 	const [review] = useMutation(REVIEW, { update: () => refetch() });
 
-	if (loading) {
+	if (loading || !data.updates) {
 		return <Loading />;
+	}
+
+	if (error) {
+		return <p>{error.message}</p>;
 	}
 
 	return (
