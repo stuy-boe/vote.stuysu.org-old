@@ -13,6 +13,7 @@ import cloudinaryCore from '../../utils/cloudinaryCore';
 import { ElectionContext } from '../../pages/election';
 import { useMediaQuery } from 'react-responsive/src';
 import shuffleArray from '../../utils/shuffleArray';
+import UserContext from '../context/UserContext';
 
 const responsive = {
 	desktop: {
@@ -29,6 +30,7 @@ const responsive = {
 
 const ElectionNav = () => {
 	const election = React.useContext(ElectionContext);
+	const user = React.useContext(UserContext);
 
 	// Seed is stored in a ref to ensure consistency across re-renders
 	const seed = React.useRef(Math.floor(Math.random() * 1000));
@@ -61,7 +63,6 @@ const ElectionNav = () => {
 						/>{' '}
 						Voting
 					</h2>
-
 					<img
 						src={vote}
 						alt={'People voting'}
@@ -89,6 +90,18 @@ const ElectionNav = () => {
 							disabled={new Date() < new Date(election.start)}
 						>
 							Vote
+						</Button>
+					</UnstyledLink>
+					&nbsp; &nbsp; &nbsp;
+					<UnstyledLink to={`/election/${election.url}/results`}>
+						<Button
+							outlined
+							disabled={
+								!election.complete &&
+								!user?.adminRoles?.includes('elections')
+							}
+						>
+							Results
 						</Button>
 					</UnstyledLink>
 				</GridCell>

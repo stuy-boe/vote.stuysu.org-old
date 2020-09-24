@@ -15,3 +15,9 @@ a {
 .text-center {
 	text-align: center;
 }
+
+@media only screen and (max-width: 800px){
+	.desktop-only {
+		display: none;
+	}
+}

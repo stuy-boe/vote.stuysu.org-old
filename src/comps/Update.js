@@ -32,8 +32,6 @@ const Update = ({
 }) => {
 	const classes = useStyles();
 
-	console.log(official, candidate);
-
 	return (
 		<Card outlined style={{ margin: '1rem 0' }}>
 			<List twoLine nonInteractive>

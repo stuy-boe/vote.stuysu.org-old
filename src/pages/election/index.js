@@ -17,6 +17,7 @@ import comments from '../../img/icons/comments.svg';
 import { Helmet } from 'react-helmet';
 import ErrorPage from '../ErrorPage';
 import searching from './../../vectors/searching.svg';
+import Results from './results';
 
 export const ElectionContext = React.createContext({});
 
@@ -26,6 +27,7 @@ const ELECTION_QUERY = gql`
 			id
 			name
 			url
+			hasVoted
 			candidates {
 				id
 				name
@@ -46,6 +48,8 @@ const ELECTION_QUERY = gql`
 			}
 			start
 			end
+			type
+			complete
 			allowedGradYears
 		}
 	}
@@ -128,6 +132,13 @@ const ElectionRouter = ({ match }) => {
 						<Button>Vote</Button>
 					</UnstyledLink>
 				</Route>
+				<Route path={match.path + '/results'}>
+					<UnstyledLink
+						to={generatePath(match.path + '/results', match.params)}
+					>
+						<Button>Results</Button>
+					</UnstyledLink>
+				</Route>
 				<Route
 					path={match.path + '/:candidateUrl'}
 					component={({ match: { params } }) => (
@@ -179,6 +190,11 @@ const ElectionRouter = ({ match }) => {
 								path={match.path + '/vote'}
 								exact
 								component={Vote}
+							/>
+							<Route
+								path={match.path + '/results'}
+								exact
+								component={Results}
 							/>
 
 							<Route
