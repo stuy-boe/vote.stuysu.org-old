@@ -60,7 +60,7 @@ const PluralityResults = () => {
 			<div style={{ color: 'grey' }}>
 				<p>Election Type: Runoff</p>
 				<p>Number of Votes: {results?.numPeopleVoted}</p>
-				<p>Number of Eligible Voters: {results?.numEligibleVoters}</p>
+				{/*<p>Number of Eligible Voters: {results?.numEligibleVoters}</p>*/}
 			</div>
 
 			<List>
