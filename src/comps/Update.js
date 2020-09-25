@@ -33,7 +33,7 @@ const Update = ({
 	const classes = useStyles();
 
 	return (
-		<Card outlined style={{ margin: '1rem 0' }}>
+		<Card outlined style={{ margin: '1rem 0', overflowWrap: 'anywhere' }}>
 			<List twoLine nonInteractive>
 				<SimpleListItem
 					text={official ? 'Board of Elections' : candidate.name}
