@@ -7,26 +7,12 @@ import moment from 'moment-timezone';
 import UnstyledLink from '../utils/UnstyledLink';
 import { Button } from '@rmwc/button';
 import group from '../../img/icons/group.svg';
-import Carousel from 'react-multi-carousel';
 import { Card, CardMedia } from '@rmwc/card';
 import cloudinaryCore from '../../utils/cloudinaryCore';
 import { ElectionContext } from '../../pages/election';
-import { useMediaQuery } from 'react-responsive/src';
 import shuffleArray from '../../utils/shuffleArray';
 import UserContext from '../context/UserContext';
-
-const responsive = {
-	desktop: {
-		breakpoint: { max: 3000, min: 600 },
-		items: 2,
-		slidesToSlide: 2 // optional, default to 1.
-	},
-	mobile: {
-		breakpoint: { max: 600, min: 0 },
-		items: 1,
-		slidesToSlide: 1 // optional, default to 1.
-	}
-};
+import Grid from '@material-ui/core/Grid';
 
 const ElectionNav = () => {
 	const election = React.useContext(ElectionContext);
@@ -35,7 +21,6 @@ const ElectionNav = () => {
 	// Seed is stored in a ref to ensure consistency across re-renders
 	const seed = React.useRef(Math.floor(Math.random() * 1000));
 	const [candidates, setCandidates] = React.useState([]);
-	const isSticky = useMediaQuery({ query: '(min-height: 900px)' });
 
 	React.useEffect(() => {
 		if (election) {
@@ -45,11 +30,6 @@ const ElectionNav = () => {
 	}, [election]);
 
 	const stickyStyles = {};
-
-	if (isSticky) {
-		stickyStyles.position = 'sticky';
-		stickyStyles.top = 80;
-	}
 
 	return (
 		<div style={stickyStyles}>
@@ -119,13 +99,16 @@ const ElectionNav = () => {
 						Candidates
 					</h2>
 
-					<Carousel responsive={responsive}>
+					<Grid container spacing={2}>
 						{candidates.map(candidate => {
 							return (
-								<div
-									style={{
-										padding: '0.5rem'
-									}}
+								<Grid
+									item
+									xl={4}
+									lg={6}
+									md={6}
+									sm={6}
+									xs={12}
 									key={candidate.id}
 								>
 									<Card
@@ -195,10 +178,10 @@ const ElectionNav = () => {
 											</UnstyledLink>
 										</div>
 									</Card>
-								</div>
+								</Grid>
 							);
 						})}
-					</Carousel>
+					</Grid>
 				</GridCell>
 			</GridRow>
 		</div>
