@@ -72,7 +72,9 @@ const PluralityResults = () => {
 									src={cloudinaryCore.url(
 										roundRes.candidate.profilePic.publicId,
 										{
-											secure: true
+											secure: true,
+											height: 60,
+											crop: 'fit'
 										}
 									)}
 								/>
