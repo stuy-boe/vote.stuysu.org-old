@@ -161,15 +161,11 @@ const ElectionRouter = ({ match }) => {
 			<Grid>
 				<GridRow>
 					<GridCell span={12}>
-						{showElectionInfo ? (
-							<Route
-								path={match.path}
-								exact
-								component={ElectionNav}
-							/>
-						) : (
-							<ElectionNav />
-						)}
+						<Route
+							path={match.path}
+							exact
+							component={ElectionNav}
+						/>
 					</GridCell>
 
 					<GridCell span={12}>
