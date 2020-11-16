@@ -104,9 +104,9 @@ const ElectionNav = () => {
 							return (
 								<Grid
 									item
-									xl={4}
-									lg={6}
-									md={6}
+									xl={3}
+									lg={3}
+									md={4}
 									sm={6}
 									xs={12}
 									key={candidate.id}
