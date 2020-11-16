@@ -160,7 +160,7 @@ const ElectionRouter = ({ match }) => {
 			</Switch>
 			<Grid>
 				<GridRow>
-					<GridCell span={showElectionInfo ? 12 : 5}>
+					<GridCell span={12}>
 						{showElectionInfo ? (
 							<Route
 								path={match.path}
@@ -172,7 +172,7 @@ const ElectionRouter = ({ match }) => {
 						)}
 					</GridCell>
 
-					<GridCell span={showElectionInfo ? 12 : 7}>
+					<GridCell span={12}>
 						<Switch>
 							<Route path={match.path} exact>
 								<h2>
