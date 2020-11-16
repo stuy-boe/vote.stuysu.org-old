@@ -6,7 +6,6 @@ import { Icon } from '@rmwc/icon';
 import { generatePath, Route, Switch } from 'react-router-dom';
 import { Grid, GridCell, GridRow } from '@rmwc/grid';
 
-import { useMediaQuery } from 'react-responsive/src';
 import ElectionNav from '../../comps/elections/ElectionNav';
 import ElectionUpdates from '../../comps/elections/ElectionUpdates';
 import { Button } from '@rmwc/button';
@@ -56,7 +55,6 @@ const ELECTION_QUERY = gql`
 `;
 
 const ElectionRouter = ({ match }) => {
-	const showElectionInfo = useMediaQuery({ query: '(max-width: 1200px)' });
 	const { url } = match.params;
 	const { data, loading, refetch } = useQuery(ELECTION_QUERY, {
 		variables: { url }
